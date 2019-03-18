@@ -6,16 +6,16 @@ use Illuminate\Http\Request;
 use gesaca\Model\Persona;
 use gesaca\Http\Resources\Persona as PersonaResource;
 
+class PersonaController extends Controller {
 
-class PersonaController extends Controller
-{
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {   
+    public function index() {
+        header('Access-Control-Allow-Origin: *');
+        header('Access-Control-Allow-Methods: GET, PUT, POST, DELETE, OPTIONS');
         return PersonaResource::collection(Persona::All());
     }
 
@@ -25,16 +25,15 @@ class PersonaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {        
+    public function store(Request $request) {
         $persona = Persona::create($request->All());
         if ($persona) {
             return (new PersonaResource($persona))->additional([
-                "code_status" => 1,
-                "message" => "Se guardo exitosamente"
+                        "code_status" => 1,
+                        "message" => "Se guardo exitosamente"
             ]);
         }
-        return $this->messageShow(0,"Problema al guardar."); 
+        return $this->messageShow(0, "Problema al guardar.");
     }
 
     /**
@@ -43,16 +42,15 @@ class PersonaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
+    public function show($id) {
         $persona = Persona::where("IdPersona", $id)->first();
         if ($persona) {
             return (new PersonaResource($persona))->additional([
-                "code_status" => 1,
-                "message" => ""
+                        "code_status" => 1,
+                        "message" => ""
             ]);
         }
-        return $this->messageShow(0,"Verifique identificacion.");
+        return $this->messageShow(0, "Verifique identificacion.");
     }
 
     /**
@@ -61,9 +59,8 @@ class PersonaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
-     */    
-    public function update(Request $request, $id)
-    {
+     */
+    public function update(Request $request, $id) {
         $persona = Persona::where("IdPersona", $id)->first();
         if ($persona) {
             $persona->Nombre = $request->input("Nombre") == "" ? $persona->Nombre : $request->input("Nombre");
@@ -71,13 +68,12 @@ class PersonaController extends Controller
             $persona->Paterno = $request->input("Paterno") == "" ? $persona->Paterno : $request->input("Paterno");
             $persona->Telefono = $request->input("Telefono") == "" ? $persona->Telefono : $request->input("Telefono");
             $persona->Tipo = $request->input("Tipo") == "" ? $persona->Tipo : $request->input("Tipo");
-            $persona->Sub = $request->input("Sub") == "" ? $persona->Sub : $request->input("Sub");            
+            $persona->Sub = $request->input("Sub") == "" ? $persona->Sub : $request->input("Sub");
             //$request->All()
             $persona->save();
-        }
-        else 
+        } else
             return $this->messageShow(0, "Verifique identificacion.");
-        return messageShow(1, 'Se actualizó correctamente');          
+        return messageShow(1, 'Se actualizó correctamente');
     }
 
     /**
@@ -86,12 +82,11 @@ class PersonaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id) {
         //Usar directo delete() o 1° first y luego delete
-        $persona = Persona::where("IdPersona", $id)->first();        
+        $persona = Persona::where("IdPersona", $id)->first();
         if ($persona)
-            $persona->delete(); 
+            $persona->delete();
         else
             return $this->messageShow(0, "Verifique identificacion.");
         return messageShow(1, "Se elimino correctamente.");
@@ -99,9 +94,10 @@ class PersonaController extends Controller
 
     protected function messageShow($code, $msg) {
         return response()->json([
-            "data" => "",
-            "code_status" => $code,
-            "message" => $msg
+                    "data" => "",
+                    "code_status" => $code,
+                    "message" => $msg
         ]);
     }
+
 }
