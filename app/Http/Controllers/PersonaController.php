@@ -42,7 +42,9 @@ class PersonaController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id) {
+    public function show(Persona $persona) { //$id
+        echo $persona;
+        /*
         $persona = Persona::where("IdPersona", $id)->first();
         if ($persona) {
             return (new PersonaResource($persona))->additional([
@@ -51,6 +53,7 @@ class PersonaController extends Controller {
             ]);
         }
         return $this->messageShow(0, "Verifique identificacion.");
+        */
     }
 
     /**
@@ -90,6 +93,17 @@ class PersonaController extends Controller {
         else
             return $this->messageShow(0, "Verifique identificacion.");
         return messageShow(1, "Se elimino correctamente.");
+    }
+
+    public function search($dni) {
+        $persona = Persona::where("dni", $dni)->first();
+        if ($persona) {
+            return (new PersonaResource($persona))->additional([
+                        "code_status" => 1,
+                        "message" => ""
+            ]);
+        }
+        return $this->messageShow(0, "Verifique identificacion.");
     }
 
     protected function messageShow($code, $msg) {
