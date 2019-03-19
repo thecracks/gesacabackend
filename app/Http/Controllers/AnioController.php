@@ -65,12 +65,14 @@ class AnioController extends Controller
     {
         $anio = Anio::where("IdAnio", $id)->first();
         if ($anio) {
+            /*
             $anio->Fecha = $request->input("Fecha") == "" ? $anio->Fecha : $request->input("Fecha");
             $anio->FechaInicio = $request->input("FechaInicio") == "" ? $anio->FechaInicio : $request->input("FechaInicio");
             $anio->FechaFin = $request->input("FechaFin") == "" ? $anio->FechaFin : $request->input("FechaFin");
-            $anio->Descripcion = $request->input("Descripcion") == "" ? $anio->Descripcion : $request->input("Descripcion");
-            
+            $anio->Descripcion = $request->input("Descripcion") == "" ? $anio->Descripcion : $request->input("Descripcion");           
             $anio->save();
+            */
+            $anio->update($request->All());
         }
         else
             return $this->messageShow(0, "Verifique identificacion.");
