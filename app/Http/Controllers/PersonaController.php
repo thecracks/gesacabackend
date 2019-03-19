@@ -42,9 +42,7 @@ class PersonaController extends Controller {
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Persona $persona) { //$id
-        echo $persona;
-        /*
+    public function show($id) {
         $persona = Persona::where("IdPersona", $id)->first();
         if ($persona) {
             return (new PersonaResource($persona))->additional([
@@ -53,7 +51,6 @@ class PersonaController extends Controller {
             ]);
         }
         return $this->messageShow(0, "Verifique identificacion.");
-        */
     }
 
     /**
