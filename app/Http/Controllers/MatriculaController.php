@@ -3,6 +3,8 @@
 namespace gesaca\Http\Controllers;
 
 use gesaca\Model\Matricula;
+use gesaca\Model\Anio;
+use gesaca\Model\Persona;
 use Illuminate\Http\Request;
 use gesaca\Http\Resources\Matricula as MatriculaResource;
 
@@ -65,6 +67,7 @@ class MatriculaController extends Controller
     {
         $matricula = Matricula::where("IdMatricula", $id)->first();
         if ($matricula) {
+            /*
             $matricula->IdPersona = $request->input("IdPersona") == "" ? $matricula->IdPersona : $request->input("IdPersona");
             $matricula->IdNivel = $request->input("IdNivel") == "" ? $matricula->IdNivel : $request->input("IdNivel");
             $matricula->IdAnio = $request->input("IdAnio") == "" ? $matricula->IdAnio : $request->input("IdAnio");
@@ -73,6 +76,8 @@ class MatriculaController extends Controller
             $matricula->Nota = $request->input("Nota") == "" ? $matricula->Nota : $request->input("Nota");       
             //$request->All()
             $matricula->save();
+            */
+            $matricula->update($request->All());
         }
         else 
             return $this->messageShow(0, "Verifique identificacion.");
@@ -95,6 +100,33 @@ class MatriculaController extends Controller
         else
             return $this->messageShow(0, "Verifique identificacion.");
         return $this->messageShow(1, "Se elimino correctamente.");
+    }
+
+    public function search($dni, $fecha = null) {
+        $matricula = null;
+        $msg = "Verifique identificacion.";
+
+        $persona  = $persona = Persona::where("Dni", $dni)->first();
+        if ($persona) {
+            if (isset($fecha)) {
+                $anio = Anio::where("Fecha", $fecha)->first();
+                if ($anio) {
+                    $matricula = Matricula::where(["IdPersona" => $persona->IdPersona,
+                    "IdAnio" => $anio->IdAnio])->get();
+                } else {
+                    $msg = "Verifique año.";
+                }
+            } else {
+                $matricula = Matricula::where("IdPersona", $persona->IdPersona)->get();
+            }
+        }
+        if ($matricula) {
+            return (MatriculaResource::collection($matricula))->additional([
+                        "code_status" => 1,
+                        "message" => ""
+            ]);
+        }
+        return $this->messageShow(0, $msg);
     }
 
     protected function messageShow($code, $msg) {

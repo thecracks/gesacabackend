@@ -11,7 +11,7 @@ class Matricula extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        "IdPersona", "IdPersona", "IdNivel", "IdAnio", "Grado", "Seccion", "Nota", 
+        "IdPersona", "IdNivel", "IdAnio", "Grado", "Seccion", "Nota", 
     ];
 
     public function persona() {
