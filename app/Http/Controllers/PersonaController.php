@@ -63,6 +63,8 @@ class PersonaController extends Controller {
     public function update(Request $request, $id) {
         $persona = Persona::where("IdPersona", $id)->first();
         if ($persona) {
+            $persona->update($request->All());
+            /*
             $persona->Nombre = $request->input("Nombre") == "" ? $persona->Nombre : $request->input("Nombre");
             $persona->Materno = $request->input("Materno") == "" ? $persona->Materno : $request->input("Materno");
             $persona->Paterno = $request->input("Paterno") == "" ? $persona->Paterno : $request->input("Paterno");
@@ -71,6 +73,7 @@ class PersonaController extends Controller {
             $persona->Sub = $request->input("Sub") == "" ? $persona->Sub : $request->input("Sub");
             //$request->All()
             $persona->save();
+            */
         } else
             return $this->messageShow(0, "Verifique identificacion.");
         return $this->messageShow(1, 'Se actualizó correctamente');

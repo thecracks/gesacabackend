@@ -22,6 +22,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::apiResource('nivels', 'NivelController');
 Route::apiResource('anios', 'AnioController');
 Route::apiResource('personas', 'PersonaController');
-Route::get('persona_dni/{dni}', 'PersonaController@search')->name('personas.search');
+Route::get('personas/dni/{dni}', 'PersonaController@search')->name('personas.search');
 Route::apiResource('matriculas', 'MatriculaController');
-Route::get('matricula_dni/{dni}', 'MatriculaController@search')->name('matriculas.search');
+Route::get('matriculas/search/{dni}/{anio?}', 'MatriculaController@search')->name('matriculas.search');
