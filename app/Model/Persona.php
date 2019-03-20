@@ -11,7 +11,7 @@ class Persona extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        "Nombre", "Paterno", "Materno", "Telefono", "Tipo", "Sub"
+        "Dni", "Nombre", "Paterno", "Materno", "Telefono", "Tipo", "Sub"
     ];
 
     public function matriculas() {

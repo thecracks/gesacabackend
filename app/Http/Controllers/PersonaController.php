@@ -73,7 +73,7 @@ class PersonaController extends Controller {
             $persona->save();
         } else
             return $this->messageShow(0, "Verifique identificacion.");
-        return messageShow(1, 'Se actualizó correctamente');
+        return $this->messageShow(1, 'Se actualizó correctamente');
     }
 
     /**
@@ -89,11 +89,11 @@ class PersonaController extends Controller {
             $persona->delete();
         else
             return $this->messageShow(0, "Verifique identificacion.");
-        return messageShow(1, "Se elimino correctamente.");
+        return $this->messageShow(1, "Se elimino correctamente.");
     }
 
     public function search($dni) {
-        $persona = Persona::where("dni", $dni)->first();
+        $persona = Persona::where("Dni", $dni)->first();
         if ($persona) {
             return (new PersonaResource($persona))->additional([
                         "code_status" => 1,

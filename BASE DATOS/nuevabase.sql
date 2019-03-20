@@ -29,7 +29,7 @@ ENGINE = InnoDB;
 -- Table `db_gesaca`.`Anio`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `db_gesaca`.`Anio` (
-  `IdAnio` INT NOT NULL,
+  `IdAnio` INT NOT NULL AUTO_INCREMENT,
   `Fecha` INT(4) NOT NULL,
   `FechaInicio` DATE NOT NULL,
   `FechaFin` DATE NOT NULL,
@@ -42,7 +42,8 @@ ENGINE = InnoDB;
 -- Table `db_gesaca`.`Persona`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `db_gesaca`.`Persona` (
-  `IdPersona` INT NOT NULL,
+  `IdPersona` INT NOT NULL AUTO_INCREMENT,
+  `Dni` VARCHAR(8) NOT NULL,
   `Nombre` VARCHAR(80) NOT NULL,
   `Paterno` VARCHAR(50) NOT NULL,
   `Materno` VARCHAR(50) NOT NULL,
@@ -57,12 +58,12 @@ ENGINE = InnoDB;
 -- Table `db_gesaca`.`Matricula`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `db_gesaca`.`Matricula` (
-  `IdMatricula` INT NOT NULL,
+  `IdMatricula` INT NOT NULL AUTO_INCREMENT,
   `IdPersona` INT NOT NULL,
   `IdNivel` INT NOT NULL,
   `IdAnio` INT NOT NULL,
-  `IdGrado` INT(1) NOT NULL,
-  `IdSeccion` INT(2) NOT NULL,
+  `Grado` INT(1) NOT NULL,
+  `Seccion` INT(2) NOT NULL,
   `Nota` DECIMAL(2,2) NULL DEFAULT 0.00,
   PRIMARY KEY (`IdMatricula`),
   INDEX `fk_Matricula_Persona_idx` (`IdPersona` ASC) ,

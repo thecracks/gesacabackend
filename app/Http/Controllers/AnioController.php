@@ -76,7 +76,7 @@ class AnioController extends Controller
         }
         else
             return $this->messageShow(0, "Verifique identificacion.");
-        return messageShow(1, 'Se actualizó correctamente');        
+        return $this->messageShow(1, 'Se actualizó correctamente');        
     }
 
     /**
@@ -93,7 +93,7 @@ class AnioController extends Controller
             $anio->delete(); 
         else
             return $this->messageShow(0, "Verifique identificacion.");
-        return messageShow(1, "Se elimino correctamente.");
+        return $this->messageShow(1, "Se elimino correctamente.");
     }
 
     protected function messageShow($code, $msg) {

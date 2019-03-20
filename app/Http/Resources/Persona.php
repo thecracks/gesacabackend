@@ -17,6 +17,7 @@ class Persona extends JsonResource
         //return parent::toArray($request);
         return [
             'IdPersona' => $this->IdPersona,
+            'Dni' => $this->Dni,
             'Nombre' => $this->Nombre,
             'Paterno' => $this->Paterno,
             'Materno' => $this->Materno,
